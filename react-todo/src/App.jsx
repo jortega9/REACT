@@ -3,34 +3,40 @@ import TodoCreate from "./components/TodoCreate";
 import TodoList from "./components/TodoList";
 import TodoComputed from "./components/TodoComputed";
 import TodoFilter from "./components/TodoFilter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const initialStateTodos = [
-  {
-    id: 1,
-    title: "Go to the gym",
-    completed: true
-  },
-  {
-    id: 2,
-    title: "Complete the React course",
-    completed: false
-  },
-  {
-    id: 3,
-    title: "Watch a movie",
-    completed: false
-  },
-  {
-    id: 4,
-    title: "Play Basketall",
-    completed: false
-  }
-]
+// const initialStateTodos = [
+//   {
+//     id: 1,
+//     title: "Go to the gym",
+//     completed: true
+//   },
+//   {
+//     id: 2,
+//     title: "Complete the React course",
+//     completed: false
+//   },
+//   {
+//     id: 3,
+//     title: "Watch a movie",
+//     completed: false
+//   },
+//   {
+//     id: 4,
+//     title: "Play Basketall",
+//     completed: false
+//   }
+// ]
+
+const initialStateTodos = JSON.parse(localStorage.getItem("todos")) || [];
 
 const App = () => {
 
   const [todos, setTodos] = useState(initialStateTodos);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos])
 
   const createTodo = (title) => {
     const newTodo = {
@@ -74,11 +80,11 @@ const App = () => {
   }
 
   return (
-      <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain bg-gray-300 min-h-screen">
+      <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain bg-gray-300 min-h-screen dark:bg-gray-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] transition-all duration-1000 md:bg-[url('./assets/images/bg-desktop-light.jpg')] md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')]">
 
         <Header />
 
-        <main className="container px-4 mx-auto mt-8">
+        <main className="container px-4 mx-auto mt-8 md:max-w-xl">
           <TodoCreate createTodo={createTodo}/> 
 
           <TodoList todos={filteredTodos()} removeTodo= {removeTodo} updateTodo = {updateTodo}/>
@@ -88,7 +94,7 @@ const App = () => {
           <TodoFilter filter={filter} changeFilter={changeFilter}/>
         </main>
 
-        <footer className="mt-8 text-center">Drag and drop to reorder</footer>
+        <footer className="mt-8 text-center dark:text-gray-400">Drag and drop to reorder</footer>
         
       </div>
   );
