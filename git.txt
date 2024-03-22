@@ -1,0 +1,8 @@
+Añadir a git:
+- git add .
+- git commit -m "a"
+- git push
+
+Descargar de git:
+- git fetch
+- gut pull

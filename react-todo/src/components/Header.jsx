@@ -26,11 +26,13 @@ const Header = () => {
           <div className="flex justify-between">
             <h1 className="text-3xl font-semibold tracking-[0.3em] text-white uppercase">Todo</h1>
             <button onClick={() => setDarkMode(!darkMode)}>
-                {darkMode ? <IconSun/> : <IconMoon/>}
+              {darkMode ? <IconSun/> : <IconMoon/>}
             </button>
           </div>
         </header>
     );
 }
+
+
 
 export default Header;
